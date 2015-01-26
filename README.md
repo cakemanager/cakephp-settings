@@ -1,6 +1,16 @@
 # Settings plugin for CakePHP
 
-This is a pre-alpha version of the Settings-plugin for Cake3.x in combination with the Cakemanager-plugin
+This is a pre-alpha version of the Settings-plugin for Cake3.x in combination with the Cakemanager-plugin.
+
+The `Configure`-class from CakePHP is able to store keys and values in it's class. This plugin is able to store values in your database. 
+
+Is easy to use: you can use the `Configure::read()` and `Configure::write()` methods.
+
+Also, you are able to read and write settings by your console.
+
+Last but not least: If you use the [CakeManager](https://github.com/cakemanager/cakephp-cakemanager) you get an automatically generated form :).
+
+> Note: The Settings-plugin is prefix-minded. An example: `Prefix.Name`.
 
 ## Installation
 
