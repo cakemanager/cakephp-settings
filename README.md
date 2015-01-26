@@ -4,11 +4,11 @@ This is a pre-alpha version of the Settings-plugin for Cake3.x in combination wi
 
 The `Configure`-class from CakePHP is able to store keys and values in it's class. This plugin is able to store values in your database. 
 
-Is easy to use: you can use the `Configure::read()` and `Configure::write()` methods.
+Is easy to use: you can use the `Configure::read()` and `Configure::write()` methods via the [`Setting`-class](#using-the-class).
 
-Also, you are able to read and write settings by your console.
+Also, you are able to read and write settings by your [console](#using-the-shell).
 
-Last but not least: If you use the [CakeManager](https://github.com/cakemanager/cakephp-cakemanager) you get an automatically generated form :).
+Last but not least: If you use the [CakeManager](https://github.com/cakemanager/cakephp-cakemanager) you get an [automatically generated form](#using-the-settings-form) :).
 
 > Note: The Settings-plugin is prefix-minded. An example: `Prefix.Name`.
 
@@ -79,7 +79,7 @@ Example:
 $ bin/cake setting read -i App.Name
 ```
 
-## Using the class (app-based)
+## Using the class
 
 The `Setting`-class works the same like the `Configure`-class from CakePHP itself.
 
