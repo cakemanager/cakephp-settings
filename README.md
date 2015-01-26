@@ -1,4 +1,4 @@
-# cakephp-settings
+# Settings plugin for CakePHP
 
 This is a pre-alpha version of the Settings-plugin for Cake3.x in combination with the Cakemanager-plugin
 
@@ -84,12 +84,40 @@ use Settings\Core\Setting;
 You can write settings with the following:
 
 ```php
-Setting('App.Name', 'Custom Name', []);
+Setting::write('App.Name', 'Custom Name', []);
 ```
 
-The value `Custom Name` is now written to the database with the key `App.Name`.
+The value `Custom Name` is now written to the database with the key `App.Name`. The empty array can contain multiple options
+
+#### Options
+
+- Type - will be documented soon
+- Editable - will be documented soon
 
 ### Read
 
+Now we gonna read the value from our just created key. Use:
+
+```php
+Setting::read('App.Name');
+```
+
+This will return our value: `Custom Name`.
+
 ## Using the setting-forms
+
+If you are using the [CakeManager-Plugin](https://github.com/cakemanager/cakephp-cakemanager), we will create a default form where you can edit your settings (if the field `editable` isset to `1`). The Settings-Plugin will automatically add a menu-item to the admin-area.
+
+If you click the menu-item you will see a list with all editable settings who contains the chosen prefix (or default: `App`).
+
+### Register
+
+To add your prefix to the settings-list use the following:
+
+```php
+Configure::write('Settings.Prefixes.Plugin', [
+    'alias'  => 'Plugin Name',
+    'prefix' => 'Plugin',
+]);
+```
 
