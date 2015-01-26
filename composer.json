@@ -1,5 +1,5 @@
 {
-    "name": "cakemanager/settings",
+    "name": "cakemanager/cakephp-settings",
     "description": "Settings plugin for CakePHP",
     "type": "cakephp-plugin",
     "require": {
