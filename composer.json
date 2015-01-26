@@ -1,5 +1,5 @@
 {
-    "name": "your-name-here/Settings",
+    "name": "cakemanager/settings",
     "description": "Settings plugin for CakePHP",
     "type": "cakephp-plugin",
     "require": {
@@ -9,6 +9,9 @@
     },
     "require-dev": {
         "phpunit/phpunit": "*"
+    },
+    "extra": {
+        "installer-name": "Settings"
     },
     "autoload": {
         "psr-4": {
