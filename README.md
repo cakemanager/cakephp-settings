@@ -27,7 +27,7 @@ And run `/composer update`.
 You will need to add the following line to your application's bootstrap.php file:
 
 ```php
-Plugin::load('Migrations');
+Plugin::load('Settings');
 ```
 
 Next you need to create the table. Use the following command to initialize the settings-table.
