@@ -11,12 +11,8 @@ class Initial extends AbstractMigration
      * @return void
      */
     public function up() {
-        $table = $this->table('configurations', ['id' => false]);
+        $table = $this->table('configurations');
         $table
-                ->addColumn('id', 'integer', [
-                    'limit'   => '11',
-                    'null'    => '',
-                ])
                 ->addColumn('name', 'string', [
                     'limit'   => '100',
                     'null'    => '',
