@@ -1,0 +1,6 @@
+Commands:
+
+
+# CORE
+
+phpunit tests/TestCase/Core/SettingTest.php 
