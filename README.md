@@ -1,6 +1,6 @@
 # Settings plugin for CakePHP
 
-This is a pre-alpha version of the Settings-plugin for Cake3.x in combination with the Cakemanager-plugin. The `Configure`-class from CakePHP is able to store keys and values in it's class. This plugin is able to store values in your database. 
+This is the Settings-plugin for Cake3.x witch works in combination with the Cakemanager-plugin. The `Configure`-class from CakePHP is able to store keys and values in it's class. This plugin is able to store values in your database. 
 
 - Is easy to use: you can use the `Configure::read()` and `Configure::write()` methods via the [`Setting`-class](#using-the-class).
 
@@ -92,7 +92,7 @@ use Settings\Core\Setting;
 You can write settings with the following:
 
 ```php
-Setting::write('App.Name', 'Custom Name', []);
+Setting::write('App.Name', 'Custom Name');
 ```
 
 The value `Custom Name` is now written to the database with the key `App.Name`. The empty array can contain multiple options
