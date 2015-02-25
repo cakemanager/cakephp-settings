@@ -10,15 +10,24 @@ class Setting
 
     /**
      * List of loaded data
+     *
      * @var type
      */
     protected static $_data = [];
 
     /**
      * Holder for the model
+     *
      * @var type
      */
     protected static $_model = null;
+
+    /**
+     * Keeps the boolean if the autoload method has been loaded
+     *
+     * @var type
+     */
+    protected static $_autoloaded = false;
 
     /**
      * Method to read the data
@@ -26,7 +35,9 @@ class Setting
      * @param string $key with the name of the setting
      * @return type
      */
-    public static function read($key = null) {
+    public static function read($key = null)
+    {
+        self::autoLoad();
 
         if (!$key) {
             return self::$_data;
@@ -72,7 +83,9 @@ class Setting
      * ]
      *
      */
-    public static function write($key, $value = null, $options = []) {
+    public static function write($key, $value = null, $options = [])
+    {
+        self::autoLoad();
 
         $_options = [
             'editable' => 1,
@@ -107,10 +120,14 @@ class Setting
     /**
      * Checks if an specific key exists
      *
+     * Returns true or false
+     *
      * @param string $key
      * @return bool true or false
      */
-    public static function check($key) {
+    public static function check($key)
+    {
+        self::autoLoad();
 
         $model = self::model();
 
@@ -118,9 +135,9 @@ class Setting
             return true;
         }
 
-        $query = $model->findByName($key)->first();
+        $query = $model->findByName($key);
 
-        if (!$query) {
+        if (!$query->Count()) {
             return false;
         }
 
@@ -128,11 +145,12 @@ class Setting
     }
 
     /**
-     * Returns an instance of the Configurations-model
+     * Returns an instance of the Configurations-model (Table)
+     *
      * @return type
      */
-    public static function model() {
-
+    public static function model()
+    {
         if (!self::$_model) {
             self::$_model = TableRegistry::get('Settings.Configurations');
         }
@@ -141,13 +159,60 @@ class Setting
     }
 
     /**
+     * Registers a setting and its default values
+     *
+     * @param type $key
+     * @param type $data
+     */
+    public static function register($key, $data = [])
+    {
+        self::autoLoad();
+
+        $_data = [
+            'value'       => null,
+            'editable'    => 1,
+            'autoload'    => true,
+            'description' => null,
+        ];
+
+        $data = array_merge($_data, $data);
+
+        // Don't overrule
+        $data['overrule'] = false;
+
+        self::write($key, $data['value'], $data);
+    }
+
+    /**
+     * AutoLoad method.
+     *
+     * Loads all configurations who are autoloaded
+     *
+     */
+    public static function autoLoad()
+    {
+        if (self::$_autoloaded) {
+            return;
+        }
+        self::$_autoloaded = true;
+
+        $model = self::model();
+
+        $query = $model->find('all')->where(['autoload' => 1])->select(['name', 'value']);
+
+        foreach ($query as $configure) {
+            self::_store($configure->get('name'), $configure->get('value'));
+        }
+    }
+
+    /**
      * Stores recent data in the $_data-variable
      *
      * @param type $key
      * @param type $value
      */
-    protected static function _store($key, $value) {
-
+    protected static function _store($key, $value)
+    {
         self::$_data[$key] = $value;
     }
 
