@@ -1,10 +1,6 @@
     <h3><?= $prefix['alias'] ?></h3>
 
-    <?=
-    $this->Menu->menu('navbar', [
-        'builder' => 'CakeManager.NavbarMenu'
-    ])
-    ?>
+    <?= $this->Menu->menu('navbar', 'CakeManager.NavbarMenu') ?>
 
     <?php
     echo $this->Form->create();

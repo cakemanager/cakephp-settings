@@ -9,7 +9,7 @@ class ManagerEvents implements EventListenerInterface
 
     public function implementedEvents() {
         return [
-            'Component.Manager.beforeFilter.Admin' => 'beforeFilter',
+            'Component.Manager.beforeFilter.admin' => 'beforeFilter',
         ];
     }
 

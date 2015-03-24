@@ -65,19 +65,29 @@ class SettingTest extends TestCase
     public function testCheck()
     {
 
-        $this->assertFalse(Setting::check('App.Name'));
+        $this->assertFalse(Setting::check('App.UniqueName'));
 
-        Setting::write('App.Name', 'Test');
+        Setting::write('App.UniqueName', 'Test');
 
-        $this->assertTrue(Setting::check('App.Name'));
+        $this->assertTrue(Setting::check('App.UniqueName'));
     }
+
+    public function testRead()
+    {
+
+        debug(Setting::read());
+
+    }
+
 
     /**
      * Test write-method
      */
     public function testWrite()
     {
-        
+
+
+
     }
 
 }
