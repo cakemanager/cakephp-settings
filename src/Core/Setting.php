@@ -1,13 +1,10 @@
-<?php
-
-namespace Settings\Core;
+<?php namespace Settings\Core;
 
 use Cake\ORM\TableRegistry;
 use Cake\Utility\Hash;
 
 class Setting
 {
-
     /**
      * List of loaded data
      *
@@ -35,7 +32,7 @@ class Setting
      * @param string $key with the name of the setting
      * @return type
      */
-    public static function read($key = null)
+    public static function read($key = null, $type = null)
     {
         self::autoLoad();
 
@@ -44,6 +41,10 @@ class Setting
         }
 
         if (key_exists($key, self::$_data)) {
+            if ($type) {
+                settype(self::$_data[$key], $type);
+                return self::$_data[$key];
+            }
             return self::$_data[$key];
         }
 
@@ -58,6 +59,10 @@ class Setting
         }
 
         self::_store($key, $data['value']);
+
+        if ($type) {
+            settype($data['value'], $type);
+        }
 
         return $data['value'];
     }
@@ -169,9 +174,9 @@ class Setting
         self::autoLoad();
 
         $_data = [
-            'value'       => null,
-            'editable'    => 1,
-            'autoload'    => true,
+            'value' => null,
+            'editable' => 1,
+            'autoload' => true,
             'description' => null,
         ];
 
@@ -215,5 +220,4 @@ class Setting
     {
         self::$_data[$key] = $value;
     }
-
 }
