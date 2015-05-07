@@ -5,10 +5,12 @@
     "require": {
         "php": ">=5.4",
         "cakephp/plugin-installer": "*",
-        "cakephp/cakephp": "3.0.x-dev"
+        "cakephp/cakephp": "3.0.x-dev",
+        "cakemanager/cakephp-cakemanager": "dev-develop",
+		"cakemanager/cakephp-utils": "1.0.*@dev"
     },
     "require-dev": {
-        "phpunit/phpunit": "*"
+        "phpunit/phpunit": " 4.6.*@dev"
     },
     "extra": {
         "installer-name": "Settings"
@@ -21,7 +23,8 @@
     "autoload-dev": {
         "psr-4": {
             "Settings\\Test\\": "tests",
-            "Cake\\Test\\": "./vendor/cakephp/cakephp/tests"
+            "Cake\\Test\\": "./vendor/cakephp/cakephp/tests",
+			"App\\": "tests/App"
         }
     }
 }
