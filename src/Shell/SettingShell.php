@@ -1,5 +1,17 @@
 <?php
-
+/**
+ * CakeManager (http://cakemanager.org)
+ * Copyright (c) http://cakemanager.org
+ *
+ * Licensed under The MIT License
+ * For full copyright and license information, please see the LICENSE.txt
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @copyright     Copyright (c) http://cakemanager.org
+ * @link          http://cakemanager.org CakeManager Project
+ * @since         1.0
+ * @license       http://www.opensource.org/licenses/mit-license.php MIT License
+ */
 namespace Settings\Shell;
 
 use Cake\Console\Shell;
@@ -9,20 +21,25 @@ use Cake\Console\Shell;
  */
 class SettingShell extends Shell
 {
-
     public $tasks = ['Settings.Read', 'Settings.Write'];
 
     /**
      * main() method.
      *
-     * @return bool|int Success or error code.
+     * @return void
      */
-    public function main() {
-
-
+    public function main()
+    {
+        // default
     }
 
-    public function getOptionParser() {
+    /**
+     * getOptionParser
+     *
+     * @return ConsoleOptionParser
+     */
+    public function getOptionParser()
+    {
         $parser = parent::getOptionParser();
 
         $parser->addSubcommand('read', [
@@ -37,5 +54,4 @@ class SettingShell extends Shell
 
         return $parser;
     }
-
 }

@@ -1,4 +1,4 @@
-<h3><?= $prefix['alias'] ?></h3>
+<h3><?= $prefix ?></h3>
 
 <?= $this->Menu->menu('navbar', 'CakeManager.NavbarMenu') ?>
 
@@ -25,11 +25,3 @@ foreach ($settings as $id => $setting) {
 echo $this->Form->button(__('Submit'));
 
 echo $this->Form->end();
-
-//    \Cake\Core\Configure::write('debug', false);
-debug(\Settings\Core\Setting::read('App.debug', 'bool'));
-debug(\Cake\Core\Configure::read());
-?>
-
-
-<!--{1:"On",0:"Off"}-->

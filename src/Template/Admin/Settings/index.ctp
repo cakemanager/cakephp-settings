@@ -10,6 +10,4 @@
 
     <?= $this->Html->link('New setting', ['action' => 'add']) ?>
 
-
-
 </div>

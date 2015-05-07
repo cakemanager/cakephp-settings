@@ -1,4 +1,18 @@
-<?php namespace Settings\Core;
+<?php
+/**
+ * CakeManager (http://cakemanager.org)
+ * Copyright (c) http://cakemanager.org
+ *
+ * Licensed under The MIT License
+ * For full copyright and license information, please see the LICENSE.txt
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @copyright     Copyright (c) http://cakemanager.org
+ * @link          http://cakemanager.org CakeManager Project
+ * @since         1.0
+ * @license       http://www.opensource.org/licenses/mit-license.php MIT License
+ */
+namespace Settings\Core;
 
 use Cake\ORM\TableRegistry;
 use Cake\Utility\Hash;
@@ -8,29 +22,32 @@ class Setting
     /**
      * List of loaded data
      *
-     * @var type
+     * @var array
      */
     protected static $_data = [];
 
     /**
      * Holder for the model
      *
-     * @var type
+     * @var \Cake\ORM\Table
      */
     protected static $_model = null;
 
     /**
      * Keeps the boolean if the autoload method has been loaded
      *
-     * @var type
+     * @var bool
      */
     protected static $_autoloaded = false;
 
     /**
-     * Method to read the data
+     * read
      *
-     * @param string $key with the name of the setting
-     * @return type
+     * Method to read the data.
+     *
+     * @param string $key Key with the name of the setting.
+     * @param string $type The type to return in.
+     * @return mixed
      */
     public static function read($key = null, $type = null)
     {
@@ -68,10 +85,9 @@ class Setting
     }
 
     /**
-     * Method to write data to database
+     * write
      *
-     * @param string $key of the value. Must contain an prefix
-     * @param mixed $value the value of the key
+     * Method to write data to database.
      *
      * ### Example
      *
@@ -87,6 +103,10 @@ class Setting
      *      'editable' => 0,
      * ]
      *
+     * @param string $key Key of the value. Must contain an prefix.
+     * @param mixed $value The value of the key.
+     * @param array $options Options array.
+     * @return bool
      */
     public static function write($key, $value = null, $options = [])
     {
@@ -123,17 +143,17 @@ class Setting
     }
 
     /**
-     * Checks if an specific key exists
+     * check
      *
-     * Returns true or false
+     * Checks if an specific key exists.
+     * Returns boolean.
      *
-     * @param string $key
-     * @return bool true or false
+     * @param string $key Key.
+     * @return bool
      */
     public static function check($key)
     {
         self::autoLoad();
-
         $model = self::model();
 
         if (key_exists($key, self::$_data)) {
@@ -150,9 +170,11 @@ class Setting
     }
 
     /**
-     * Returns an instance of the Configurations-model (Table)
+     * model
      *
-     * @return type
+     * Returns an instance of the Configurations-model (Table).
+     *
+     * @return \Cake\ORM\Table
      */
     public static function model()
     {
@@ -164,17 +186,21 @@ class Setting
     }
 
     /**
-     * Registers a setting and its default values
+     * register
      *
-     * @param type $key
-     * @param type $data
+     * Registers a setting and its default values.
+     *
+     * @param string $key The key.
+     * @param mixed $value The default value.
+     * @param array $data Custom data
+     * @return void
      */
-    public static function register($key, $data = [])
+    public static function register($key, $value, $data = [])
     {
         self::autoLoad();
 
         $_data = [
-            'value' => null,
+            'value' => $value,
             'editable' => 1,
             'autoload' => true,
             'description' => null,
@@ -189,10 +215,12 @@ class Setting
     }
 
     /**
+     * autoLoad
+     *
      * AutoLoad method.
+     * Loads all configurations who are autoloaded.
      *
-     * Loads all configurations who are autoloaded
-     *
+     * @return void
      */
     public static function autoLoad()
     {
@@ -211,10 +239,13 @@ class Setting
     }
 
     /**
-     * Stores recent data in the $_data-variable
+     * _store
      *
-     * @param type $key
-     * @param type $value
+     * Stores recent data in the $_data-variable.
+     *
+     * @param string $key The key.
+     * @param mixed $value The value.
+     * @return void
      */
     protected static function _store($key, $value)
     {
