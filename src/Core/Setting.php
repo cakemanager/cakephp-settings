@@ -259,7 +259,7 @@ class Setting
      * @param bool $reload Bool if settings should be reloaded
      * @return void
      */
-    public function clear($reload = false)
+    public static function clear($reload = false)
     {
         self::$_autoloaded = !$reload;
         self::$_data = [];
