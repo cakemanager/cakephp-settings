@@ -54,7 +54,7 @@ class ConfigurationsTableTest extends TestCase
 
         parent::tearDown();
     }
-    
+
     /**
      * test Entity
      *
@@ -63,7 +63,7 @@ class ConfigurationsTableTest extends TestCase
     public function testEntity()
     {
         $this->assertEquals(0, $this->Settings->find('all')->count());
-        
+
         $data = [
             'key' => 'App.Key',
             'value' => 'Value',
@@ -74,11 +74,11 @@ class ConfigurationsTableTest extends TestCase
             'weight' => 10,
             'autoload' => true
         ];
-        
+
         $this->Settings->save($this->Settings->newEntity($data));
-        
+
         $this->assertEquals(1, $this->Settings->find('all')->count());
-        
+
         $entity = $this->Settings->get(1);
 
         $this->assertEquals('App.Key', $entity->name);
@@ -92,5 +92,4 @@ class ConfigurationsTableTest extends TestCase
         $this->assertEquals(10, $entity->weight);
         $this->assertEquals(1, $entity->autoload);
     }
-
 }

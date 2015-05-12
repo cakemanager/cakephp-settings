@@ -41,7 +41,6 @@ class SettingsControllerTest extends IntegrationTestCase
     public function setUp()
     {
         parent::setUp();
-
     }
 
     /**
