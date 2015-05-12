@@ -1,30 +1,30 @@
 {
-    "name": "cakemanager/cakephp-settings",
-    "description": "Settings plugin for CakePHP",
-    "type": "cakephp-plugin",
-    "require": {
-        "php": ">=5.4",
-        "cakephp/plugin-installer": "*",
-        "cakephp/cakephp": "3.0.x-dev",
-        "cakemanager/cakephp-cakemanager": "dev-develop",
-		"cakemanager/cakephp-utils": "1.0.*@dev"
-    },
-    "require-dev": {
-        "phpunit/phpunit": " 4.6.*@dev"
-    },
-    "extra": {
-        "installer-name": "Settings"
-    },
-    "autoload": {
-        "psr-4": {
-            "Settings\\": "src"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Settings\\Test\\": "tests",
-            "Cake\\Test\\": "./vendor/cakephp/cakephp/tests",
-			"App\\": "tests/App"
-        }
+  "name": "cakemanager/cakephp-settings",
+  "description": "Settings plugin for CakePHP",
+  "type": "cakephp-plugin",
+  "require": {
+    "php": ">=5.4",
+    "cakephp/plugin-installer": "*",
+    "cakephp/cakephp": "3.0.x-dev",
+    "cakemanager/cakephp-utils": "1.0.*@dev"
+  },
+  "require-dev": {
+    "cakemanager/cakephp-cakemanager": "dev-develop",
+    "phpunit/phpunit": " 4.6.*@dev"
+  },
+  "extra": {
+    "installer-name": "Settings"
+  },
+  "autoload": {
+    "psr-4": {
+      "Settings\\": "src"
     }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Settings\\Test\\": "tests",
+      "Cake\\Test\\": "./vendor/cakephp/cakephp/tests",
+      "App\\": "tests/App"
+    }
+  }
 }
