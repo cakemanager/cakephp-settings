@@ -18,6 +18,17 @@ use App\Controller\AppController as BaseController;
 
 class AppController extends BaseController
 {
+    /**
+     * initialize
+     *
+     * @return void
+     */
+    public function initialize()
+    {
+        $this->loadComponent('Utils.Authorizer');
+
+        parent::initialize();
+    }
 
     /**
      * isAuthorized

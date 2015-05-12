@@ -35,6 +35,7 @@ class Configuration extends Entity
         'editable' => true,
         'options' => true,
         'weight' => true,
+        'autoload' => true,
     ];
 
     /**
@@ -63,32 +64,20 @@ class Configuration extends Entity
     }
 
     /**
-     * _getOptions
+     * _getOptionsArray
      *
      * Getter for `options`. Array's are json-decoded.
      *
-     * @param string $options Options.
      * @return array
      */
-    protected function _getOptions($options)
+    protected function _getOptionsArray()
     {
+        $options = $this->_properties['options'];
+        
         if (!empty($options)) {
             return json_decode($options, true);
         }
 
         return $options;
-    }
-    
-    /**
-     * _setOptions
-     *
-     * Setter for `options`. Array's are json-encoded.
-     *
-     * @param array $options Options.
-     * @return string.
-     */
-    protected function _setOptions($options)
-    {
-        return json_encode($options);
     }
 }

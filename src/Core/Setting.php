@@ -59,8 +59,9 @@ class Setting
 
         if (key_exists($key, self::$_data)) {
             if ($type) {
-                settype(self::$_data[$key], $type);
-                return self::$_data[$key];
+                $value = self::$_data[$key];
+                settype($value, $type);
+                return $value;
             }
             return self::$_data[$key];
         }
@@ -77,11 +78,13 @@ class Setting
 
         self::_store($key, $data['value']);
 
+        $value = $data['value'];
+
         if ($type) {
-            settype($data['value'], $type);
+            settype($value, $type);
         }
 
-        return $data['value'];
+        return $value;
     }
 
     /**
@@ -124,16 +127,19 @@ class Setting
         if (self::check($key)) {
             if ($options['overrule']) {
                 $data = $model->findByName($key)->first();
-                $data->value = $value;
-                $model->save($data);
+                if ($data) {
+                    $data->set('value', $value);
+                    $model->save($data);
+                } else {
+                    return false;
+                }
             } else {
                 return false;
             }
         } else {
-            $data = $model->newEntity();
+            $data = $model->newEntity($options);
             $data->name = $key;
             $data->value = $value;
-            $data->editable = $options['editable'];
             $model->save($data);
         }
 
@@ -173,11 +179,17 @@ class Setting
      * model
      *
      * Returns an instance of the Configurations-model (Table).
+     * Also used as setter for the instance of the model.
      *
+     * @param \Cake\ORM\Table|null $model Model to use.
      * @return \Cake\ORM\Table
      */
-    public static function model()
+    public static function model($model = null)
     {
+        if ($model) {
+            self::$_model = $model;
+        }
+
         if (!self::$_model) {
             self::$_model = TableRegistry::get('Settings.Configurations');
         }
@@ -192,7 +204,7 @@ class Setting
      *
      * @param string $key The key.
      * @param mixed $value The default value.
-     * @param array $data Custom data
+     * @param array $data Custom data.
      * @return void
      */
     public static function register($key, $value, $data = [])
@@ -208,7 +220,7 @@ class Setting
 
         $data = array_merge($_data, $data);
 
-        // Don't overrule
+        // Don't overrule because we register
         $data['overrule'] = false;
 
         self::write($key, $data['value'], $data);
@@ -236,6 +248,21 @@ class Setting
         foreach ($query as $configure) {
             self::_store($configure->get('name'), $configure->get('value'));
         }
+    }
+
+    /**
+     * clear
+     *
+     * Clears all settings out of the class. Settings
+     * won't be deleted from database.
+     *
+     * @param bool $reload Bool if settings should be reloaded
+     * @return void
+     */
+    public function clear($reload = false)
+    {
+        self::$_autoloaded = !$reload;
+        self::$_data = [];
     }
 
     /**

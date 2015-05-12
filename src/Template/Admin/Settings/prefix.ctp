@@ -17,7 +17,7 @@ foreach ($settings as $id => $setting) {
     echo $this->Form->input($id . '.value', [
         'type' => (($setting->type) ? $setting->type : 'text'),
         'label' => ucfirst(end($name)) . (($setting->description) ? ' - ' . $setting->description : ''),
-        'options' => (($setting->options) ? $setting->options : ''),
+        'options' => (($setting->options) ? $setting->options_array : ''),
         'value' => $setting->value,
     ]);
 }

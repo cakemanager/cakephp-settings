@@ -28,7 +28,7 @@ class ConfigurationsTable extends Table
      * @param array $config The configuration for the Table.
      * @return void
      */
-    public function initialize($config = [])
+    public function initialize(array $config)
     {
         $this->table('settings_configurations');
         $this->displayField('id');

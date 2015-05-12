@@ -18,6 +18,7 @@ use Cake\Core\Configure;
 use Cake\Network\Exception\NotFoundException;
 use Cake\Utility\Hash;
 use Settings\Controller\AppController;
+use Settings\Core\Setting;
 
 /**
  * Settings Controller
@@ -59,36 +60,37 @@ class SettingsController extends AppController
      *
      * Shows all settings with the specific prefix.
      *
-     * @param string $prefix The prefix.
+     * @param string $key The prefix.
      * @return void|\Cake\Network\Respose
      * @throws NotFoundException
      */
-    public function prefix($prefix = null)
+    public function prefix($key = null)
     {
-        if (!$prefix) {
-            $prefix = 'App';
+        if (!$key) {
+            $key = 'App';
         }
 
-        if (!$this->__prefixExists($prefix)) {
-            throw new NotFoundException("The prefix-setting " . $prefix . " could not be found");
+        if (!$this->__prefixExists($key)) {
+            throw new NotFoundException("The prefix-setting " . $key . " could not be found");
         }
 
-        $prefix = Hash::get($this->prefixes, ucfirst($prefix));
+        $prefix = Hash::get($this->prefixes, ucfirst($key));
 
         $settings = $this->Configurations->find('all')->where([
-                'name LIKE' => $prefix . '%',
-                'editable' => 1,
-            ])->order(['weight', 'id']);
+            'name LIKE' => $key . '%',
+            'editable' => 1,
+        ])->order(['weight', 'id']);
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $settings = $this->Configurations->patchEntities($settings, $this->request->data);
             foreach ($settings as $setting) {
                 $this->Flash->success('The settings has been saved.');
-
                 if (!$this->Configurations->save($setting)) {
                     $this->Flash->error('The settings could not be saved. Please, try again.');
                 }
             }
+            Setting::clear(true);
+            Setting::autoLoad();
             return $this->redirect([]);
         }
 
