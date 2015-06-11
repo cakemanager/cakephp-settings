@@ -52,7 +52,8 @@ class ManagerEvents implements EventListenerInterface
                 'plugin' => 'Settings',
                 'controller' => 'Settings',
                 'action' => 'prefix'
-            ]
+            ],
+            'weight' => 200
         ]);
     }
 }
