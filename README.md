@@ -75,6 +75,17 @@ Setting::read('App.Name');
 
 This will return our value: `Custom Name`.
 
+
+### Register
+
+To prevent missing configurations when migrating to another environment the `register` method is introduced.
+Use the following to make sure the configuration exists in your application:
+
+```php
+Setting::register('App.Name', 'Default Value', []);
+```
+
+
 ## Using the setting-forms
 
 If you are using the [CakeManager-Plugin](https://github.com/cakemanager/cakephp-cakemanager), we will create a default form where you can edit your settings (if the field `editable` isset to `1`). The Settings-Plugin will automatically add a menu-item to the admin-area.
