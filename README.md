@@ -36,47 +36,6 @@ Next you need to create the table. Use the following command to initialize the s
 $ bin/cake migrations migrate -p Settings
 ```
 
-## Using the shell
-
-Via the shell you are able to read and write settings.
-
-### Write
-
-This is an example of writing a key to the database:
-
-```
-$ bin/cake setting write App.Name "My Name With Spaces"
-```
-
-This will write our value to the database.
-
-#### Options
-
-- Type - will be documented soon
-- Editable - will be documented soon
-
-### Read
-
-This is an example of reading a key:
-
-```
-$ bin/cake setting read App.Name
-```
-
-This will return:
-Key:            App.Name
-Value:          Custom Name
-
-#### Options
-
-By using the `-i / --info` options you get more information about the requested key.
-
-Example:
-
-```
-$ bin/cake setting read -i App.Name
-```
-
 ## Using the class
 
 The `Setting`-class works the same like the `Configure`-class from CakePHP itself.
