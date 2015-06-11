@@ -86,9 +86,6 @@ If you click the menu-item you will see a list with all editable settings who co
 To add your prefix to the settings-list use the following:
 
 ```php
-Configure::write('Settings.Prefixes.Plugin', [
-    'alias'  => 'Plugin Name',
-    'prefix' => 'Plugin',
-]);
+Configure::write('Settings.Prefixes.Test', 'Test');
 ```
 
