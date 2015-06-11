@@ -28,6 +28,10 @@ You will need to add the following line to your application's bootstrap.php file
 
 ```php
 Plugin::load('Settings');
+
+// or run in your shell
+
+$ bin/cake plugin load Settings
 ```
 
 Next you need to create the table. Use the following command to initialize the settings-table.
@@ -36,11 +40,11 @@ Next you need to create the table. Use the following command to initialize the s
 $ bin/cake migrations migrate -p Settings
 ```
 
-## Using the class
+## Usage
 
 The `Setting`-class works the same like the `Configure`-class from CakePHP itself.
 
-You can include the class like:
+You can include the class with:
 
 ```php
 use Settings\Core\Setting;

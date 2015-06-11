@@ -56,6 +56,18 @@ class ConfigurationsTableTest extends TestCase
     }
 
     /**
+     * test Initialize
+     *
+     * @return void
+     */
+    public function testInitialize()
+    {
+        $this->assertEquals('settings_configurations', $this->Settings->table());
+        $this->assertEquals('id', $this->Settings->displayField());
+        $this->assertEquals('id', $this->Settings->primaryKey());
+    }
+
+    /**
      * test Entity
      *
      * @return void
