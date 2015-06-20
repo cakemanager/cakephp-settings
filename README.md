@@ -27,11 +27,11 @@ And run `/composer update`.
 You will need to add the following line to your application's bootstrap.php file:
 
 ```php
-Plugin::load('Settings');
+Plugin::load('Settings', ['bootstrap' => true, 'routes' => true]);
 
 // or run in your shell
 
-$ bin/cake plugin load Settings
+$ bin/cake plugin load -b -r Settings
 ```
 
 Next you need to create the table. Use the following command to initialize the settings-table.
