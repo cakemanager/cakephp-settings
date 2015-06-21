@@ -88,7 +88,7 @@ class SettingsControllerTest extends IntegrationTestCase
         ]]);
 
         Setting::write('App.Key1', 'Value1');
-        Setting::write('App.Key2', 1, ['editable'=>1, 'type'=>'checkbox', 'value'=>1]);
+        Setting::write('App.Key2', 1, ['editable' => 1, 'type' => 'checkbox', 'value' => 1]);
 
         Setting::write('CM.Key1', 'Value1');
         Setting::write('CM.Key2', 'Value2');
