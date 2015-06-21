@@ -88,7 +88,7 @@ class SettingsControllerTest extends IntegrationTestCase
         ]]);
 
         Setting::write('App.Key1', 'Value1');
-        Setting::write('App.Key2', 'Value2');
+        Setting::write('App.Key2', 1, ['editable'=>1, 'type'=>'checkbox', 'value'=>1]);
 
         Setting::write('CM.Key1', 'Value1');
         Setting::write('CM.Key2', 'Value2');
@@ -105,8 +105,8 @@ class SettingsControllerTest extends IntegrationTestCase
         $this->assertResponseContains('<div class="input text"><label for="0-value">Key1</label>');
         $this->assertResponseContains('<input type="text" name="0[value]" options="" id="0-value" value="Value1"></div>');
         $this->assertResponseContains('<input type="hidden" name="1[id]" id="1-id" value="2">');
-        $this->assertResponseContains('<div class="input text"><label for="1-value">Key2</label>');
-        $this->assertResponseContains('<input type="text" name="1[value]" options="" id="1-value" value="Value2"></div>');
+        $this->assertResponseContains('<div class="input checkbox"><input type="hidden" name="1[value]" value="0">');
+        $this->assertResponseContains('<label for="1-value"><input type="checkbox" name="1[value]" value="1" options="" checked="checked" id="1-value">Key2</label></div>');
         $this->assertResponseContains('<button type="submit">Submit</button></form>');
 
         $this->get('/admin/settings/settings/prefix/CM');
