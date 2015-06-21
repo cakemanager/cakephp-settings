@@ -14,12 +14,25 @@ foreach ($settings as $id => $setting) {
     
     $name = explode('.', $setting->name);
     
-    echo $this->Form->input($id . '.value', [
-        'type' => (($setting->type) ? $setting->type : 'text'),
-        'label' => ucfirst(end($name)) . (($setting->description) ? ' - ' . $setting->description : ''),
-        'options' => (($setting->options) ? $setting->options_array : ''),
-        'value' => $setting->value,
-    ]);
+    switch($setting->type){
+        case 'checkbox':
+            echo $this->Form->input($id . '.value', [
+                'type' => (($setting->type) ? $setting->type : 'text'),
+                'label' => ucfirst(end($name)) . (($setting->description) ? ' - ' . $setting->description : ''),
+                'options' => (($setting->options) ? $setting->options : ''),
+                'value' => 1,
+                'checked' => $setting->value,
+            ]);
+            break;
+        default:
+            echo $this->Form->input($id . '.value', [
+                'type' => (($setting->type) ? $setting->type : 'text'),
+                'label' => ucfirst(end($name)) . (($setting->description) ? ' - ' . $setting->description : ''),
+                'options' => (($setting->options) ? $setting->options : ''),
+                'value' => $setting->value,
+            ]);
+            break;
+    }
 }
 
 echo $this->Form->button(__('Submit'));
