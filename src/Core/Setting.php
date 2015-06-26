@@ -121,7 +121,7 @@ class Setting
      * @param string $key Key of the value. Must contain an prefix.
      * @param mixed $value The value of the key.
      * @param array $options Options array.
-     * @return bool
+     * @return void|bool
      */
     public static function write($key, $value = null, $options = [])
     {
@@ -171,7 +171,7 @@ class Setting
      * Returns boolean.
      *
      * @param string $key Key.
-     * @return bool
+     * @return bool|void
      */
     public static function check($key)
     {
