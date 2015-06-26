@@ -72,7 +72,7 @@ class Configuration extends Entity
      */
     protected function _getOptions()
     {
-        if(array_key_exists('name',$this->_properties)) {
+        if (array_key_exists('name', $this->_properties)) {
             return Setting::options($this->_properties['name']);
         }
         return false;
