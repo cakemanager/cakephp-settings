@@ -14,6 +14,7 @@
  */
 namespace Settings\Core;
 
+use Cake\Datasource\ConnectionManager;
 use Cake\ORM\TableRegistry;
 use Cake\Utility\Hash;
 
@@ -58,6 +59,10 @@ class Setting
      */
     public static function read($key = null, $type = null)
     {
+        if(!self::_tableExists()) {
+            return;
+        }
+
         self::autoLoad();
 
         if (!$key) {
@@ -120,6 +125,10 @@ class Setting
      */
     public static function write($key, $value = null, $options = [])
     {
+        if(!self::_tableExists()) {
+            return;
+        }
+
         self::autoLoad();
 
         $_options = [
@@ -166,6 +175,10 @@ class Setting
      */
     public static function check($key)
     {
+        if(!self::_tableExists()) {
+            return;
+        }
+
         self::autoLoad();
         $model = self::model();
 
@@ -216,6 +229,10 @@ class Setting
      */
     public static function register($key, $value, $data = [])
     {
+        if(!self::_tableExists()) {
+            return;
+        }
+
         self::autoLoad();
 
         $_data = [
@@ -244,6 +261,10 @@ class Setting
      * @return mixed
      */
     public static function options($key, $value = null) {
+        if(!self::_tableExists()) {
+            return;
+        }
+
         if($value) {
             self::$_options[$key] = $value;
         }
@@ -265,6 +286,9 @@ class Setting
      */
     public static function autoLoad()
     {
+        if(!self::_tableExists()) {
+            return;
+        }
         if (self::$_autoloaded) {
             return;
         }
@@ -306,5 +330,20 @@ class Setting
     protected static function _store($key, $value)
     {
         self::$_data[$key] = $value;
+    }
+
+    /**
+     * _tableExists
+     *
+     * @return bool
+     */
+    protected static function _tableExists() {
+        $db = ConnectionManager::get('default');
+        $tables = $db->schemaCollection()->listTables();
+
+        if(in_array('settings_configurations', $tables)) {
+            return true;
+        }
+        return false;
     }
 }
