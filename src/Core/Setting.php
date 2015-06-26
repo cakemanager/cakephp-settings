@@ -59,7 +59,7 @@ class Setting
      */
     public static function read($key = null, $type = null)
     {
-        if(!self::_tableExists()) {
+        if (!self::_tableExists()) {
             return;
         }
 
@@ -125,7 +125,7 @@ class Setting
      */
     public static function write($key, $value = null, $options = [])
     {
-        if(!self::_tableExists()) {
+        if (!self::_tableExists()) {
             return;
         }
 
@@ -175,7 +175,7 @@ class Setting
      */
     public static function check($key)
     {
-        if(!self::_tableExists()) {
+        if (!self::_tableExists()) {
             return;
         }
 
@@ -229,7 +229,7 @@ class Setting
      */
     public static function register($key, $value, $data = [])
     {
-        if(!self::_tableExists()) {
+        if (!self::_tableExists()) {
             return;
         }
 
@@ -260,16 +260,17 @@ class Setting
      * @param array $value Options to use.
      * @return mixed
      */
-    public static function options($key, $value = null) {
-        if(!self::_tableExists()) {
+    public static function options($key, $value = null)
+    {
+        if (!self::_tableExists()) {
             return;
         }
 
-        if($value) {
+        if ($value) {
             self::$_options[$key] = $value;
         }
 
-        if(array_key_exists($key, self::$_options)) {
+        if (array_key_exists($key, self::$_options)) {
             return self::$_options[$key];
         } else {
             return false;
@@ -286,7 +287,7 @@ class Setting
      */
     public static function autoLoad()
     {
-        if(!self::_tableExists()) {
+        if (!self::_tableExists()) {
             return;
         }
         if (self::$_autoloaded) {
@@ -337,11 +338,12 @@ class Setting
      *
      * @return bool
      */
-    protected static function _tableExists() {
+    protected static function _tableExists()
+    {
         $db = ConnectionManager::get('default');
         $tables = $db->schemaCollection()->listTables();
 
-        if(in_array('settings_configurations', $tables)) {
+        if (in_array('settings_configurations', $tables)) {
             return true;
         }
         return false;
