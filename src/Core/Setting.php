@@ -27,6 +27,13 @@ class Setting
     protected static $_data = [];
 
     /**
+     * Options
+     *
+     * @var array
+     */
+    protected static $_options = [];
+
+    /**
      * Holder for the model
      *
      * @var \Cake\ORM\Table
@@ -215,6 +222,7 @@ class Setting
             'value' => $value,
             'editable' => 1,
             'autoload' => true,
+            'options' => [],
             'description' => null,
         ];
 
@@ -223,7 +231,28 @@ class Setting
         // Don't overrule because we register
         $data['overrule'] = false;
 
+        self::options($key, $data['options']);
+
         self::write($key, $data['value'], $data);
+    }
+
+    /**
+     * options
+     *
+     * @param string $key Key for options.
+     * @param array $value Options to use.
+     * @return mixed
+     */
+    public static function options($key, $value = null) {
+        if($value) {
+            self::$_options[$key] = $value;
+        }
+
+        if(array_key_exists($key, self::$_options)) {
+            return self::$_options[$key];
+        } else {
+            return false;
+        }
     }
 
     /**

@@ -13,10 +13,3 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 use Cake\Routing\Router;
-
-Router::prefix('admin', function ($routes) {
-    $routes->plugin('Settings', ['path' => '/settings'], function ($routes) {
-        $routes->fallbacks('InflectedRoute');
-    });
-    $routes->fallbacks('InflectedRoute');
-});

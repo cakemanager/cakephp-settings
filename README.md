@@ -60,11 +60,6 @@ Setting::write('App.Name', 'Custom Name');
 
 The value `Custom Name` is now written to the database with the key `App.Name`. The empty array can contain multiple options
 
-#### Options
-
-- Type - will be documented soon
-- Editable - will be documented soon
-
 ### Read
 
 Now we gonna read the value from our just created key. Use:
@@ -85,6 +80,14 @@ Use the following to make sure the configuration exists in your application:
 Setting::register('App.Name', 'Default Value', []);
 ```
 
+#### Options
+The following options are available:
+- `description` - Description of your setting.
+- `type` - Type to use like `text`, `select`, and more.
+- `options` - Array with available options. In combination with the `type = select` option, this will generate a 
+select-box with the given options.
+- `editable` - Bool if the setting should be editable.
+- `weight` - Weight (order) of the setting.
 
 ## Using the setting-forms
 

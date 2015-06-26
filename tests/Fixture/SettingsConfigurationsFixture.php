@@ -46,9 +46,6 @@ class SettingsConfigurationsFixture extends TestFixture
         'editable' => [
             'type' => 'integer',
         ],
-        'options' => [
-            'type' => 'text',
-        ],
         'weight' => [
             'type' => 'integer',
         ],

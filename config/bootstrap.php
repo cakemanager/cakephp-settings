@@ -16,12 +16,6 @@ use Cake\Core\Configure;
 use Cake\Event\EventManager;
 use Settings\Controller\Events\ManagerEvents;
 use Cake\Core\Plugin;
+use Settings\Core\Setting;
 
-if (Plugin::loaded('CakeManager')) {
-    // registering the managerEvents
-    $manager = new ManagerEvents();
-    EventManager::instance()->attach($manager);
-    
-    // Adding the CM-prefix
-    Configure::write('Settings.Prefixes.CM', 'CakeManager');
-}
+Configure::write('Settings.Prefixes.App', 'App');

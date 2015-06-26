@@ -82,7 +82,6 @@ class ConfigurationsTableTest extends TestCase
             'description' => 'Custom Description',
             'type' => 'text',
             'editable' => true,
-            'options' => '{"0":"Val0","1":"Val1"}',
             'weight' => 10,
             'autoload' => true
         ];
@@ -99,8 +98,6 @@ class ConfigurationsTableTest extends TestCase
         $this->assertEquals('Custom Description', $entity->description);
         $this->assertEquals('text', $entity->type);
         $this->assertEquals(1, $entity->editable);
-        $this->assertEquals('{"0":"Val0","1":"Val1"}', $entity->options);
-        $this->assertEquals([0 => 'Val0', 1 => 'Val1'], $entity->options_array);
         $this->assertEquals(10, $entity->weight);
         $this->assertEquals(1, $entity->autoload);
     }

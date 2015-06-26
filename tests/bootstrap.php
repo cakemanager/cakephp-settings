@@ -22,7 +22,6 @@ use Cake\Routing\DispatcherFactory;
 require_once 'vendor/autoload.php';
 
 define('ROOT', dirname(__DIR__) . DS);
-define('ROOT_CM', ROOT . 'vendor' . DS . 'cakemanager' . DS . 'cakephp-cakemanager' . DS);
 define('ROOT_UTILS', ROOT . 'vendor' . DS . 'cakemanager' . DS . 'cakephp-utils' . DS);
 define('CAKE_CORE_INCLUDE_PATH', ROOT . 'vendor' . DS . 'cakephp' . DS . 'cakephp');
 define('CORE_PATH', ROOT . 'vendor' . DS . 'cakephp' . DS . 'cakephp' . DS);
@@ -117,7 +116,6 @@ Log::config([
 ]);
 
 Plugin::load('Utils', ['path' => ROOT_UTILS]);
-Plugin::load('CakeManager', ['path' => ROOT_CM, 'bootstrap' => true, 'routes' => true]);
 Plugin::load('Settings', ['path' => ROOT, 'bootstrap' => true, 'routes' => true]);
 
 Carbon\Carbon::setTestNow(Carbon\Carbon::now());

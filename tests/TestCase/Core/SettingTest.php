@@ -178,18 +178,16 @@ class SettingTest extends TestCase
             'description' => 'Short description',
             'type' => 'text',
             'editable' => true,
-            'options' => '{"0":"Val0","1":"Val1","2":"Val2"}',
+            'options' => [
+                1 => 'One',
+                2 => 'Two'
+            ],
             'weight' => 20,
             'autoload' => true,
         ]);
 
         $this->assertEquals(2, $this->Settings->find('all')->count());
 
-        $_options = [
-            0 => 'Val0',
-            1 => 'Val1',
-            2 => 'Val2',
-        ];
         $value = $this->Settings->get(2);
         $this->assertEquals('App.WriteAdvanced', $value->name);
         $this->assertEquals('App.WriteAdvanced', $value->key);
@@ -197,8 +195,6 @@ class SettingTest extends TestCase
         $this->assertEquals('Short description', $value->description);
         $this->assertEquals('text', $value->type);
         $this->assertEquals(1, $value->editable);
-        $this->assertEquals('{"0":"Val0","1":"Val1","2":"Val2"}', $value->options);
-        $this->assertEquals($_options, $value->options_array);
         $this->assertEquals(20, $value->weight);
         $this->assertEquals(1, $value->autoload);
     }
@@ -242,18 +238,12 @@ class SettingTest extends TestCase
             'description' => 'Short description',
             'type' => 'text',
             'editable' => true,
-            'options' => '{"0":"Val0","1":"Val1","2":"Val2"}',
             'weight' => 20,
             'autoload' => true,
         ]);
 
         $this->assertEquals(2, $this->Settings->find('all')->count());
 
-        $_options = [
-            0 => 'Val0',
-            1 => 'Val1',
-            2 => 'Val2',
-        ];
         $value = $this->Settings->get(2);
         $this->assertEquals('App.WriteAdvanced', $value->name);
         $this->assertEquals('App.WriteAdvanced', $value->key);
@@ -261,10 +251,33 @@ class SettingTest extends TestCase
         $this->assertEquals('Short description', $value->description);
         $this->assertEquals('text', $value->type);
         $this->assertEquals(1, $value->editable);
-        $this->assertEquals('{"0":"Val0","1":"Val1","2":"Val2"}', $value->options);
-        $this->assertEquals($_options, $value->options_array);
         $this->assertEquals(20, $value->weight);
         $this->assertEquals(1, $value->autoload);
+    }
+
+    /**
+     * Test options-method
+     */
+    public function testOptions()
+    {
+        Setting::register('App.Key', 1, [
+            'options' => [
+                0 => 'One',
+                1 => 'Two',
+            ]
+        ]);
+
+        $expected = [
+            0 => 'One',
+            1 => 'Two',
+        ];
+
+        $this->assertEquals($expected, Setting::options('App.Key'));
+
+        Setting::options('App.Second', [
+            0 => 'One',
+            1 => 'Two',
+        ]);
     }
 
     /**
@@ -276,19 +289,19 @@ class SettingTest extends TestCase
     {
         Setting::write('App.Test1', 'Test1');
         Setting::write('App.Test2', 'Test2');
-        
+
         Setting::clear();
-        
+
         $this->assertEmpty(Setting::read());
-        
+
         Setting::clear(true);
         Setting::autoLoad();
-        
+
         $_array = [
             'App.Test1' => 'Test1',
             'App.Test2' => 'Test2',
         ];
-        
+
         $this->assertEquals($_array, Setting::read());
     }
 }

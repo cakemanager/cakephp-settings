@@ -15,6 +15,7 @@
 namespace Settings\Model\Entity;
 
 use Cake\ORM\Entity;
+use Settings\Core\Setting;
 
 /**
  * Configuration Entity.
@@ -33,7 +34,6 @@ class Configuration extends Entity
         'description' => true,
         'type' => true,
         'editable' => true,
-        'options' => true,
         'weight' => true,
         'autoload' => true,
     ];
@@ -70,14 +70,13 @@ class Configuration extends Entity
      *
      * @return array
      */
-    protected function _getOptionsArray()
+    protected function _getOptions()
     {
-        $options = $this->_properties['options'];
-        
-        if (!empty($options)) {
-            return json_decode($options, true);
+        if(array_key_exists('name',$this->_properties)) {
+            return Setting::options($this->_properties['name']);
         }
-
-        return $options;
+        return false;
     }
+
+    protected $_virtual = ['options'];
 }

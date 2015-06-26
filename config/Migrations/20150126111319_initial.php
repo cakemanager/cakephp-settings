@@ -45,11 +45,6 @@ class Initial extends AbstractMigration
                 'limit'   => '11',
                 'default' => '1',
             ])
-            ->addColumn('options', 'text', [
-                'limit'   => '',
-                'null'    => true,
-                'default' => '',
-            ])
             ->addColumn('weight', 'integer', [
                 'limit'   => '11',
                 'default' => '0',
