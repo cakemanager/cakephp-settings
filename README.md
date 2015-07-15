@@ -89,6 +89,17 @@ select-box with the given options.
 - `editable` - Bool if the setting should be editable.
 - `weight` - Weight (order) of the setting.
 
+The options key can handle multiple types. You can define an array with options, but you can also create a close to 
+prevent long queries on every request. Example:
+
+```php
+Setting::register('App.Index', false, [
+    'options' => function() {
+        return TableRegistry::get('Blogs')->find('list')->toArray();
+    }
+]);
+```
+
 ## Using the setting-forms
 
 If you are using the [CakeManager-Plugin](https://github.com/cakemanager/cakephp-cakemanager), we will create a default form where you can edit your settings (if the field `editable` isset to `1`). The Settings-Plugin will automatically add a menu-item to the admin-area.
