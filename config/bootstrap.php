@@ -14,7 +14,6 @@
  */
 use Cake\Core\Configure;
 use Cake\Event\EventManager;
-use Settings\Controller\Events\ManagerEvents;
 use Cake\Core\Plugin;
 use Settings\Core\Setting;
 
