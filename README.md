@@ -1,5 +1,9 @@
 # Settings plugin for CakePHP
 
+[![Build Status](https://travis-ci.org/cakemanager/cakephp-settings.svg?branch=master)](https://travis-ci.org/cakemanager/cakephp-settings)
+[![Coverage Status](https://coveralls.io/repos/cakemanager/cakephp-settings/badge.svg?branch=master&service=github)](https://coveralls.io/github/cakemanager/cakephp-settings?branch=master)
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/cakemanager/cakephp-settings?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+
 This is the Settings-plugin for Cake3.x witch works in combination with the Cakemanager-plugin. The `Configure`-class from CakePHP is able to store keys and values in it's class. This plugin is able to store values in your database. 
 
 - Is easy to use: you can use the `Configure::read()` and `Configure::write()` methods via the [`Setting`-class](#using-the-class).
