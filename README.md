@@ -4,13 +4,13 @@
 [![Coverage Status](https://coveralls.io/repos/cakemanager/cakephp-settings/badge.svg?branch=master&service=github)](https://coveralls.io/github/cakemanager/cakephp-settings?branch=master)
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/cakemanager/cakephp-settings?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
-This is the Settings-plugin for Cake3.x witch works in combination with the Cakemanager-plugin. The `Configure`-class from CakePHP is able to store keys and values in it's class. This plugin is able to store values in your database. 
+The Settings Plugin allows you to manage your settings (normally used with cake's `Configure`-class) in your database.
 
 - Is easy to use: you can use the `Configure::read()` and `Configure::write()` methods via the [`Setting`-class](#using-the-class).
 
 - Also, you are able to read and write settings by your [console](#using-the-shell).
 
-- Last but not least: If you use the [CakeManager](https://github.com/cakemanager/cakephp-cakemanager) you get an [automatically generated form](#using-the-settings-form) :).
+- Last but not least: If you use the [CakeAdmin Plugin](https://github.com/cakemanager/cakephp-cakeadmin) you get an [automatically generated form](#using-the-settings-form) :).
 
 > Note: The Settings-plugin is prefix-minded. An example: `Prefix.Name`.
 
@@ -106,7 +106,7 @@ Setting::register('App.Index', false, [
 
 ## Using the setting-forms
 
-If you are using the [CakeManager-Plugin](https://github.com/cakemanager/cakephp-cakemanager), we will create a default form where you can edit your settings (if the field `editable` isset to `1`). The Settings-Plugin will automatically add a menu-item to the admin-area.
+If you are using the [CakeAdmin Plugin](https://github.com/cakemanager/cakephp-cakeadmin), we will create a default form where you can edit your settings (if the field `editable` isset to `1`). The Settings-Plugin will automatically add a menu-item to the admin-area.
 
 If you click the menu-item you will see a list with all editable settings who contains the chosen prefix (or default: `App`).
 
