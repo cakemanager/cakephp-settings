@@ -416,7 +416,7 @@ class Setting
                 case 'b':
                 case 'i':
                 case 'd':
-                    // This looks odd but it is quicker than isset()ing
+                    
                     $end .= ';';
                 case 'a':
                 case 'O':
