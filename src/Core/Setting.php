@@ -178,6 +178,10 @@ class Setting
             if ($options['overrule']) {
                 $data = $model->findByName($key)->first();
                 if ($data) {
+                    if(is_array($value) && !empty($value)) {
+                        $value = serialize($value);
+                    }
+                    
                     $data->set('value', $value);
                     $model->save($data);
                 } else {
