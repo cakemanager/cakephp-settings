@@ -17,6 +17,7 @@ namespace Settings\Core;
 use Cake\Datasource\ConnectionManager;
 use Cake\ORM\TableRegistry;
 use Cake\Utility\Hash;
+use Cake\Core\Configure;
 
 class Setting
 {
@@ -26,6 +27,13 @@ class Setting
      * @var array
      */
     protected static $_data = [];
+    
+    /**
+     * Array of values currently stored in Configure.
+     *
+     * @var array
+     */
+    protected static $_values = [];
 
     /**
      * Options
@@ -84,10 +92,37 @@ class Setting
 
         if ($data->count() > 0) {
             $data = $data->first()->toArray();
-        } else {
-            return null;
+        }
+        else {
+            
+            $data = $model->find()
+                  ->select(['name', 'value'])
+                  ->where(['name LIKE' =>  $key.'.%']);
+            
+            if ($data->count() > 0) {
+                $data = $data->toArray();
+                
+                foreach($data as $data_set)
+                {
+                    if(self::_serialized($data_set->value))
+                    {
+                        $data_set->value = @unserialize($data_set->value);
+                    }
+                    static::$_values = Hash::insert(static::$_values, $data_set->name, $data_set->value);
+                }
+                
+                $data['value'] = static::$_values;
+            }
+            else
+            {
+                return null;
+            }
         }
 
+        if(self::_serialized($data['value']))
+        {
+            $data['value'] = @unserialize($data['value']);
+        }
         self::_store($key, $data['value']);
 
         $value = $data['value'];
@@ -234,6 +269,11 @@ class Setting
         }
 
         self::autoLoad();
+        
+        if(is_array($value))
+        {
+            $value = seralize($value);
+        }
 
         $_data = [
             'value' => $value,
@@ -348,4 +388,78 @@ class Setting
         }
         return false;
     }
+    
+    /**
+     * _serialized
+     *
+     * @return bool
+     */
+    protected static function _serialized( $value, &$result = null ) {
+
+        if ( ! is_string( $value ) ) {
+            return FALSE;
+        }
+
+        if ( 'b:0;' === $value ) {
+            $result = FALSE;
+            return TRUE;
+        }
+        $length	= strlen($value);
+        $end	= '';
+        
+        if ( isset( $value[0] ) ) {
+            switch ($value[0]) {
+                case 's':
+                    if ( '"' !== $value[$length - 2] )
+                        return FALSE;
+                    
+                case 'b':
+                case 'i':
+                case 'd':
+                    // This looks odd but it is quicker than isset()ing
+                    $end .= ';';
+                case 'a':
+                case 'O':
+                    $end .= '}';
+        
+                    if ( ':' !== $value[1] )
+                        return FALSE;
+        
+                    switch ( $value[2] ) {
+                        case 0:
+                        case 1:
+                        case 2:
+                        case 3:
+                        case 4:
+                        case 5:
+                        case 6:
+                        case 7:
+                        case 8:
+                        case 9:
+                        break;
+        
+                        default:
+                            return FALSE;
+                    }
+                case 'N':
+                    $end .= ';';
+                
+                    if ( $value[$length - 1] !== $end[0] )
+                        return FALSE;
+                break;
+                
+                default:
+                    return FALSE;
+            }
+        }
+        
+        if ( ( $result = @unserialize($value) ) === FALSE ) {
+            $result = null;
+            return FALSE;
+        }
+        
+        return TRUE;
+    }
+    
+    
 }
