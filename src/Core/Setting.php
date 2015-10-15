@@ -17,7 +17,6 @@ namespace Settings\Core;
 use Cake\Datasource\ConnectionManager;
 use Cake\ORM\TableRegistry;
 use Cake\Utility\Hash;
-use Cake\Core\Configure;
 
 class Setting
 {
