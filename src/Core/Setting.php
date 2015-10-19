@@ -1,5 +1,6 @@
 <?php
 /**
+ *
  * CakeManager (http://cakemanager.org)
  * Copyright (c) http://cakemanager.org
  *
@@ -20,7 +21,9 @@ use Cake\Utility\Hash;
 
 class Setting
 {
+
     /**
+     *
      * List of loaded data
      *
      * @var array
@@ -28,6 +31,7 @@ class Setting
     protected static $_data = [];
     
     /**
+     *
      * Array of values currently stored in Configure.
      *
      * @var array
@@ -35,6 +39,7 @@ class Setting
     protected static $_values = [];
 
     /**
+     *
      * Options
      *
      * @var array
@@ -42,6 +47,7 @@ class Setting
     protected static $_options = [];
 
     /**
+     *
      * Holder for the model
      *
      * @var \Cake\ORM\Table
@@ -49,6 +55,7 @@ class Setting
     protected static $_model = null;
 
     /**
+     *
      * Keeps the boolean if the autoload method has been loaded
      *
      * @var bool
@@ -56,11 +63,12 @@ class Setting
     protected static $_autoloaded = false;
 
     /**
+     *
      * read
      *
      * Method to read the data.
      *
-     * @param string $key Key with the name of the setting.
+     * @param string $key  Key with the name of the setting.
      * @param string $type The type to return in.
      * @return mixed
      */
@@ -92,29 +100,24 @@ class Setting
         if ($data->count() > 0) {
             $data = $data->first()->toArray();
         } else {
-            $data = $model->find()
-                  ->select(['name', 'value'])
-                  ->where(['name LIKE' =>  $key.'.%']);
+            $data = $model->find()->select(['name', 'value'])->where(['name LIKE' => $key . '.%']);
             
             if ($data->count() > 0) {
                 $data = $data->toArray();
-                foreach($data as $data_set)
-                {
-                    if(self::_serialized($data_set->value))
-                    {
-                        $data_set->value = unserialize($data_set->value);
+                foreach ($data as $dataSet) {
+                    if (self::_serialized($dataSet->value)) {
+                        $dataSet->value = unserialize($dataSet->value);
                     }
-                    static::$_values = Hash::insert(static::$_values, $data_set->name, $data_set->value);
+                    static::$_values = Hash::insert(static::$_values, $dataSet->name, $dataSet->value);
                 }
                 
                 $data['value'] = static::$_values;
-            }
-            else {
+            } else {
                 return null;
             }
         }
 
-        if(self::_serialized($data['value'])) {
+        if (self::_serialized($data['value'])) {
             $data['value'] = unserialize($data['value']);
         }
         self::_store($key, $data['value']);
@@ -129,6 +132,7 @@ class Setting
     }
 
     /**
+     *
      * write
      *
      * Method to write data to database.
@@ -147,9 +151,9 @@ class Setting
      *      'editable' => 0,
      * ]
      *
-     * @param string $key Key of the value. Must contain an prefix.
-     * @param mixed $value The value of the key.
-     * @param array $options Options array.
+     * @param string $key     Key of the value. Must contain an prefix.
+     * @param mixed  $value   The value of the key.
+     * @param array  $options Options array.
      * @return void|bool
      */
     public static function write($key, $value = null, $options = [])
@@ -169,14 +173,14 @@ class Setting
 
         $model = self::model();
         
-        if(is_array($value) && !empty($value)) {
+        if (is_array($value) && !empty($value)) {
             $value = serialize($value);
-        }        
+        }
 
         if (self::check($key)) {
             if ($options['overrule']) {
                 $data = $model->findByName($key)->first();
-                if ($data) {                    
+                if ($data) {
                     $data->set('value', $value);
                     $model->save($data);
                 } else {
@@ -198,6 +202,7 @@ class Setting
     }
 
     /**
+     *
      * check
      *
      * Checks if an specific key exists.
@@ -229,6 +234,7 @@ class Setting
     }
 
     /**
+     *
      * model
      *
      * Returns an instance of the Configurations-model (Table).
@@ -251,13 +257,14 @@ class Setting
     }
 
     /**
+     *
      * register
      *
      * Registers a setting and its default values.
      *
-     * @param string $key The key.
-     * @param mixed $value The default value.
-     * @param array $data Custom data.
+     * @param string $key   The key.
+     * @param mixed  $value The default value.
+     * @param array  $data  Custom data.
      * @return void
      */
     public static function register($key, $value, $data = [])
@@ -268,7 +275,7 @@ class Setting
 
         self::autoLoad();
         
-        if(is_array($value)) {
+        if (is_array($value)) {
             $value = seralize($value);
         }
 
@@ -291,10 +298,11 @@ class Setting
     }
 
     /**
+     *
      * options
      *
-     * @param string $key Key for options.
-     * @param array $value Options to use.
+     * @param string $key   Key for options.
+     * @param array  $value Options to use.
      * @return mixed
      */
     public static function options($key, $value = null)
@@ -315,6 +323,7 @@ class Setting
     }
 
     /**
+     *
      * autoLoad
      *
      * AutoLoad method.
@@ -342,6 +351,7 @@ class Setting
     }
 
     /**
+     *
      * clear
      *
      * Clears all settings out of the class. Settings
@@ -357,12 +367,13 @@ class Setting
     }
 
     /**
+     *
      * _store
      *
      * Stores recent data in the $_data-variable.
      *
-     * @param string $key The key.
-     * @param mixed $value The value.
+     * @param string $key   The key.
+     * @param mixed  $value The value.
      * @return void
      */
     protected static function _store($key, $value)
@@ -371,6 +382,7 @@ class Setting
     }
 
     /**
+     *
      * _tableExists
      *
      * @return bool
@@ -389,40 +401,47 @@ class Setting
     /**
      * _serialized
      *
+     * @param string $value   The value.
+     * @param mixed  $result  The result (null default).
      * @return bool
      */
-    protected static function _serialized( $value, &$result = null ) {
-
-        if ( ! is_string( $value ) ) {
+    protected static function _serialized($value, $result = null)
+    {
+        if (! is_string($value)) {
             return false;
         }
 
-        if ( 'b:0;' === $value ) {
+        if ('b:0;' === $value) {
             $result = false;
             return true;
         }
-        $length	= strlen($value);
-        $end	= '';
+        $length = strlen($value);
+        $end = '';
         
-        if ( isset( $value[0] ) ) {
+        if (isset($value[0])) {
             switch ($value[0]) {
                 case 's':
-                    if ( '"' !== $value[$length - 2] )
+                    if ('"' !== $value[$length - 2]) {
                         return false;
-                    
+                    }
+                    // no break
                 case 'b':
+                    // no break
                 case 'i':
+                    // no break
                 case 'd':
-                    
                     $end .= ';';
+                    // no break
                 case 'a':
+                    // no break
                 case 'O':
                     $end .= '}';
-        
-                    if ( ':' !== $value[1] )
+                    
+                    if (':' !== $value[1]) {
                         return false;
-        
-                    switch ( $value[2] ) {
+                    }
+
+                    switch ($value[2]) {
                         case 0:
                         case 1:
                         case 2:
@@ -433,30 +452,30 @@ class Setting
                         case 7:
                         case 8:
                         case 9:
-                        break;
+                            break;
         
                         default:
                             return false;
                     }
+                    // break appled in embedded switch
                 case 'N':
                     $end .= ';';
                 
-                    if ( $value[$length - 1] !== $end[0] )
+                    if ($value[$length - 1] !== $end[0]) {
                         return false;
-                break;
+                    }
+                    break;
                 
                 default:
                     return false;
             }
         }
         
-        if ( ( $result = unserialize($value) ) === false ) {
+        if (( $result = unserialize($value) ) === false) {
             $result = null;
             return false;
         }
         
         return true;
     }
-    
-    
 }
