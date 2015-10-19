@@ -91,9 +91,8 @@ class Setting
 
         if ($data->count() > 0) {
             $data = $data->first()->toArray();
-        }
-        else {
-            
+        } else {
+
             $data = $model->find()
                   ->select(['name', 'value'])
                   ->where(['name LIKE' =>  $key.'.%']);
@@ -103,8 +102,7 @@ class Setting
                 
                 foreach($data as $data_set)
                 {
-                    if(self::_serialized($data_set->value))
-                    {
+                    if(self::_serialized($data_set->value)) {
                         $data_set->value = unserialize($data_set->value);
                     }
                     static::$_values = Hash::insert(static::$_values, $data_set->name, $data_set->value);
@@ -112,14 +110,12 @@ class Setting
                 
                 $data['value'] = static::$_values;
             }
-            else
-            {
+            else {
                 return null;
             }
         }
 
-        if(self::_serialized($data['value']))
-        {
+        if(self::_serialized($data['value'])) {
             $data['value'] = unserialize($data['value']);
         }
         self::_store($key, $data['value']);
