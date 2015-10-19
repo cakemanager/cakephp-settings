@@ -91,16 +91,13 @@ class Setting
 
         if ($data->count() > 0) {
             $data = $data->first()->toArray();
-        }
-        else {
-            
+        } else {
             $data = $model->find()
                   ->select(['name', 'value'])
                   ->where(['name LIKE' =>  $key.'.%']);
             
             if ($data->count() > 0) {
                 $data = $data->toArray();
-                
                 foreach($data as $data_set)
                 {
                     if(self::_serialized($data_set->value))
@@ -112,14 +109,12 @@ class Setting
                 
                 $data['value'] = static::$_values;
             }
-            else
-            {
+            else {
                 return null;
             }
         }
 
-        if(self::_serialized($data['value']))
-        {
+        if(self::_serialized($data['value'])) {
             $data['value'] = unserialize($data['value']);
         }
         self::_store($key, $data['value']);
@@ -273,8 +268,7 @@ class Setting
 
         self::autoLoad();
         
-        if(is_array($value))
-        {
+        if(is_array($value)) {
             $value = seralize($value);
         }
 
