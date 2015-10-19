@@ -157,8 +157,7 @@ class SettingTest extends TestCase
         $this->Settings->save($this->Settings->newEntity($data));
         $read = Setting::read('App.UniqueArray');
         $this->assertGreaterThan(0, count($read));
-        $this->assertEquals([1,2=>3,'one','two'=>'three'], Setting::read('App.UniqueArray'));
-        
+        $this->assertEquals([1, 2 => 3, 'one', 'two' => 'three'], Setting::read('App.UniqueArray'));
     }
 
     /**
@@ -209,7 +208,7 @@ class SettingTest extends TestCase
         $this->assertEquals(20, $value->weight);
         $this->assertEquals(1, $value->autoload);
         
-        Setting::write('App.WriteArray',[1,2=>3,'one','two'=>'three'],[
+        Setting::write('App.WriteArray', [1, 2 => 3, 'one', 'two' => 'three'], [
             'description' => 'Short description',
             'type' => 'array',
             'editable' => true,
@@ -219,20 +218,19 @@ class SettingTest extends TestCase
             ],
             'weight' => 20,
             'autoload' => true,
-        ]);        
+        ]);
         
         $this->assertEquals(3, $this->Settings->find('all')->count());
 
-        $value = $this->Settings->get(3);        
+        $value = $this->Settings->get(3);
         $this->assertEquals('App.WriteArray', $value->name);
-        $this->assertEquals('App.WriteArray', $value->key);        
+        $this->assertEquals('App.WriteArray', $value->key);
         $this->assertEquals('a:4:{i:0;i:1;i:2;i:3;i:3;s:3:"one";s:3:"two";s:5:"three";}', $value->value);
         $this->assertEquals('Short description', $value->description);
         $this->assertEquals('array', $value->type);
         $this->assertEquals(1, $value->editable);
         $this->assertEquals(20, $value->weight);
-        $this->assertEquals(1, $value->autoload);        
-        
+        $this->assertEquals(1, $value->autoload);
     }
 
     /**
