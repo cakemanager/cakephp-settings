@@ -105,7 +105,7 @@ class Setting
                 {
                     if(self::_serialized($data_set->value))
                     {
-                        $data_set->value = @unserialize($data_set->value);
+                        $data_set->value = unserialize($data_set->value);
                     }
                     static::$_values = Hash::insert(static::$_values, $data_set->name, $data_set->value);
                 }
@@ -120,7 +120,7 @@ class Setting
 
         if(self::_serialized($data['value']))
         {
-            $data['value'] = @unserialize($data['value']);
+            $data['value'] = unserialize($data['value']);
         }
         self::_store($key, $data['value']);
 
@@ -173,15 +173,15 @@ class Setting
         $options = Hash::merge($_options, $options);
 
         $model = self::model();
+        
+        if(is_array($value) && !empty($value)) {
+            $value = serialize($value);
+        }        
 
         if (self::check($key)) {
             if ($options['overrule']) {
                 $data = $model->findByName($key)->first();
-                if ($data) {
-                    if(is_array($value) && !empty($value)) {
-                        $value = serialize($value);
-                    }
-                    
+                if ($data) {                    
                     $data->set('value', $value);
                     $model->save($data);
                 } else {
@@ -400,12 +400,12 @@ class Setting
     protected static function _serialized( $value, &$result = null ) {
 
         if ( ! is_string( $value ) ) {
-            return FALSE;
+            return false;
         }
 
         if ( 'b:0;' === $value ) {
-            $result = FALSE;
-            return TRUE;
+            $result = false;
+            return true;
         }
         $length	= strlen($value);
         $end	= '';
@@ -414,7 +414,7 @@ class Setting
             switch ($value[0]) {
                 case 's':
                     if ( '"' !== $value[$length - 2] )
-                        return FALSE;
+                        return false;
                     
                 case 'b':
                 case 'i':
@@ -426,7 +426,7 @@ class Setting
                     $end .= '}';
         
                     if ( ':' !== $value[1] )
-                        return FALSE;
+                        return false;
         
                     switch ( $value[2] ) {
                         case 0:
@@ -442,26 +442,26 @@ class Setting
                         break;
         
                         default:
-                            return FALSE;
+                            return false;
                     }
                 case 'N':
                     $end .= ';';
                 
                     if ( $value[$length - 1] !== $end[0] )
-                        return FALSE;
+                        return false;
                 break;
                 
                 default:
-                    return FALSE;
+                    return false;
             }
         }
         
-        if ( ( $result = @unserialize($value) ) === FALSE ) {
+        if ( ( $result = unserialize($value) ) === false ) {
             $result = null;
-            return FALSE;
+            return false;
         }
         
-        return TRUE;
+        return true;
     }
     
     
