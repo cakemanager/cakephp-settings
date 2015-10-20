@@ -276,7 +276,7 @@ class Setting
         self::autoLoad();
         
         if (is_array($value)) {
-            $value = seralize($value);
+            $value = serialize($value);
         }
 
         $_data = [
@@ -400,9 +400,10 @@ class Setting
     
     /**
      * _serialized
-     *
-     * @param string $value   The value.
-     * @param mixed  $result  The result (null default).
+     * 
+     * @codeCoverageIgnore
+     * @param string $value - The value.
+     * @param mixed  $result - The result (null default).
      * @return bool
      */
     protected static function _serialized($value, $result = null)

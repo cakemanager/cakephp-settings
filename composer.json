@@ -9,7 +9,7 @@
     "cakemanager/cakephp-utils": "dev-master"
   },
   "require-dev": {
-    "phpunit/phpunit": " 4.6.*@dev"
+    "phpunit/phpunit": "3.7.*"
   },
   "extra": {
     "installer-name": "Settings"
