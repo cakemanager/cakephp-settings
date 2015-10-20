@@ -161,7 +161,6 @@ class SettingTest extends TestCase
         
         $read = Setting::read('App');
         $this->assertGreaterThan(0, count($read));
-        
     }
 
     /**
@@ -260,8 +259,6 @@ class SettingTest extends TestCase
 
         $value = $this->Settings->find()->select(['name', 'value'])->where(['name LIKE' => 'Plugin.%']);
         $this->assertGreaterThan(0, $value->count());
-        
-        
     }
 
     /**
@@ -325,8 +322,7 @@ class SettingTest extends TestCase
             'editable' => true,
             'weight' => 20,
             'autoload' => true,
-        ]);        
-        
+        ]);
     }
 
     /**

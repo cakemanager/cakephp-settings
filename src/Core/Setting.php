@@ -400,7 +400,7 @@ class Setting
     
     /**
      * _serialized
-     * 
+     *
      * @codeCoverageIgnore
      * @param string $value - The value.
      * @param mixed  $result - The result (null default).
