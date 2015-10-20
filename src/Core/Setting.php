@@ -103,6 +103,7 @@ class Setting
             $data = $model->find()->select(['name', 'value'])->where(['name LIKE' => $key . '.%']);
             
             if ($data->count() > 0) {
+                static::$_values = array();
                 $data = $data->toArray();
                 foreach ($data as $dataSet) {
                     if (self::_serialized($dataSet->value)) {
