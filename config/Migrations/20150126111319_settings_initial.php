@@ -29,14 +29,8 @@ class SettingsInitial extends AbstractMigration
                 'limit'   => '100',
                 'default' => '',
             ])
-            ->addColumn('value', 'text', [
-                'default' => '',
-                'null' => true
-            ])
-            ->addColumn('description', 'text', [
-                'default' => '',
-                'null' => true
-            ])
+            ->addColumn('value', 'text')
+            ->addColumn('description', 'text')
             ->addColumn('type', 'string', [
                 'limit'   => '50',
                 'default' => '',
@@ -53,12 +47,8 @@ class SettingsInitial extends AbstractMigration
                 'limit'   => '11',
                 'default' => '1',
             ])
-            ->addColumn('created', 'datetime', [
-                'null'    => '',
-            ])
-            ->addColumn('modified', 'datetime', [
-                'null'    => '',
-            ])
+            ->addColumn('created', 'datetime')
+            ->addColumn('modified', 'datetime')
             ->create();
     }
 
