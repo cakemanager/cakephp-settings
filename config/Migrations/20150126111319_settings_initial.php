@@ -29,8 +29,12 @@ class SettingsInitial extends AbstractMigration
                 'limit'   => '100',
                 'default' => '',
             ])
-            ->addColumn('value', 'text')
-            ->addColumn('description', 'text')
+            ->addColumn('value', 'text', [
+                'null' => true
+            ])
+            ->addColumn('description', 'text', [
+                'null' => true
+            ])
             ->addColumn('type', 'string', [
                 'limit'   => '50',
                 'default' => '',
