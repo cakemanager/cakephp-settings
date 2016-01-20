@@ -2,6 +2,7 @@
   "name": "cakemanager/cakephp-settings",
   "description": "Settings plugin for CakePHP",
   "type": "cakephp-plugin",
+  "keywords": ["cakephp", "orm", "settings", "configure"],
   "require": {
     "php": ">=5.4",
     "cakephp/plugin-installer": "*",
