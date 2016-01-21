@@ -50,6 +50,7 @@ class SettingsInitial extends AbstractMigration
             ->addColumn('autoload', 'integer', [
                 'limit'   => '11',
                 'default' => '1',
+                'null' => true
             ])
             ->addColumn('created', 'datetime')
             ->addColumn('modified', 'datetime')
