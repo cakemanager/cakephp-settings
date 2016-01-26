@@ -39,17 +39,17 @@ class SettingsInitial extends AbstractMigration
                 'limit'   => '50',
                 'default' => '',
             ])
-            ->addColumn('editable', 'integer', [
-                'limit'   => '11',
-                'default' => '1',
+            ->addColumn('editable', 'boolean', [
+                'limit'   => '1',
+                'default' => true,
             ])
             ->addColumn('weight', 'integer', [
                 'limit'   => '11',
                 'default' => '0',
             ])
-            ->addColumn('autoload', 'integer', [
-                'limit'   => '11',
-                'default' => '1',
+            ->addColumn('autoload', 'boolean', [
+                'limit'   => '1',
+                'default' => true,
             ])
             ->addColumn('created', 'datetime')
             ->addColumn('modified', 'datetime')
