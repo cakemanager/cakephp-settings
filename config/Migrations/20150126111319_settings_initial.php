@@ -40,7 +40,6 @@ class SettingsInitial extends AbstractMigration
                 'default' => '',
             ])
             ->addColumn('editable', 'boolean', [
-                'limit'   => '1',
                 'default' => true,
             ])
             ->addColumn('weight', 'integer', [
@@ -48,7 +47,6 @@ class SettingsInitial extends AbstractMigration
                 'default' => '0',
             ])
             ->addColumn('autoload', 'boolean', [
-                'limit'   => '1',
                 'default' => true,
             ])
             ->addColumn('created', 'datetime')
