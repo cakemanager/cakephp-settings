@@ -13,9 +13,6 @@
     "cakephp/orm": "~3.0",
     "phpunit/phpunit": " 4.6.*@dev"
   },
-  "extra": {
-    "installer-name": "Settings"
-  },
   "autoload": {
     "psr-4": {
       "Settings\\": "src"
