@@ -26,6 +26,13 @@ class Setting
      * @var array
      */
     protected static $_data = [];
+    
+    /**
+     * Array of values currently stored in Configure.
+     *
+     * @var array
+     */
+    protected static $_values = [];
 
     /**
      * Options
@@ -85,9 +92,32 @@ class Setting
         if ($data->count() > 0) {
             $data = $data->first()->toArray();
         } else {
-            return null;
+
+            $data = $model->find()
+                  ->select(['name', 'value'])
+                  ->where(['name LIKE' =>  $key.'.%']);
+            
+            if ($data->count() > 0) {
+                $data = $data->toArray();
+                
+                foreach($data as $data_set)
+                {
+                    if(self::_serialized($data_set->value)) {
+                        $data_set->value = unserialize($data_set->value);
+                    }
+                    static::$_values = Hash::insert(static::$_values, $data_set->name, $data_set->value);
+                }
+                
+                $data['value'] = static::$_values;
+            }
+            else {
+                return null;
+            }
         }
 
+        if(self::_serialized($data['value'])) {
+            $data['value'] = unserialize($data['value']);
+        }
         self::_store($key, $data['value']);
 
         $value = $data['value'];
@@ -139,11 +169,15 @@ class Setting
         $options = Hash::merge($_options, $options);
 
         $model = self::model();
+        
+        if(is_array($value) && !empty($value)) {
+            $value = serialize($value);
+        }        
 
         if (self::check($key)) {
             if ($options['overrule']) {
                 $data = $model->findByName($key)->first();
-                if ($data) {
+                if ($data) {                    
                     $data->set('value', $value);
                     $model->save($data);
                 } else {
@@ -234,6 +268,11 @@ class Setting
         }
 
         self::autoLoad();
+        
+        if(is_array($value))
+        {
+            $value = seralize($value);
+        }
 
         $_data = [
             'value' => $value,
@@ -348,4 +387,78 @@ class Setting
         }
         return false;
     }
+    
+    /**
+     * _serialized
+     *
+     * @return bool
+     */
+    protected static function _serialized( $value, &$result = null ) {
+
+        if ( ! is_string( $value ) ) {
+            return false;
+        }
+
+        if ( 'b:0;' === $value ) {
+            $result = false;
+            return true;
+        }
+        $length	= strlen($value);
+        $end	= '';
+        
+        if ( isset( $value[0] ) ) {
+            switch ($value[0]) {
+                case 's':
+                    if ( '"' !== $value[$length - 2] )
+                        return false;
+                    
+                case 'b':
+                case 'i':
+                case 'd':
+                    
+                    $end .= ';';
+                case 'a':
+                case 'O':
+                    $end .= '}';
+        
+                    if ( ':' !== $value[1] )
+                        return false;
+        
+                    switch ( $value[2] ) {
+                        case 0:
+                        case 1:
+                        case 2:
+                        case 3:
+                        case 4:
+                        case 5:
+                        case 6:
+                        case 7:
+                        case 8:
+                        case 9:
+                        break;
+        
+                        default:
+                            return false;
+                    }
+                case 'N':
+                    $end .= ';';
+                
+                    if ( $value[$length - 1] !== $end[0] )
+                        return false;
+                break;
+                
+                default:
+                    return false;
+            }
+        }
+        
+        if ( ( $result = unserialize($value) ) === false ) {
+            $result = null;
+            return false;
+        }
+        
+        return true;
+    }
+    
+    
 }
