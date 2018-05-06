@@ -30,9 +30,9 @@ class ConfigurationsTable extends Table
      */
     public function initialize(array $config)
     {
-        $this->table('settings_configurations');
-        $this->displayField('id');
-        $this->primaryKey('id');
+        $this->setTable('settings_configurations');
+        $this->setDisplayField('id');
+        $this->setPrimaryKey('id');
         $this->addBehavior('Timestamp');
     }
 }

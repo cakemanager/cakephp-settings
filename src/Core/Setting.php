@@ -341,7 +341,7 @@ class Setting
     protected static function _tableExists()
     {
         $db = ConnectionManager::get('default');
-        $tables = $db->schemaCollection()->listTables();
+        $tables = $db->getSchemaCollection()->listTables();
 
         if (in_array('settings_configurations', $tables)) {
             return true;
